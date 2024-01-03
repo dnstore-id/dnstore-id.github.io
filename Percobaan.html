@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FREE FIRE INDONESIA</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    header {
+      background-color: #333333;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 36px;
+      color: #4CAF50;
+    }
+
+    .form-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px;
+    }
+
+    .form-input {
+      padding: 14px;
+      border-radius: 20px;
+      border: 2px solid #4CAF50;
+      background-color: #333333;
+      color: #ffffff;
+      font-size: 18px;
+      width: 300px;
+      margin-right: 10px;
+      box-sizing: border-box;
+    }
+
+    .form-button {
+      background-color: #4CAF50;
+      border: 2px solid #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-button:hover {
+      background-color: #45a049;
+    }
+
+    .content-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px;
+    }
+
+    .content-button {
+      margin: 0 20px;
+      padding: 18px 36px;
+      font-size: 20px;
+      border: 2px solid #4CAF50;
+      border-radius: 16px;
+      background-color: #333333;
+      color: #ffffff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .content-button:hover {
+      background-color: #4CAF50;
+    }
+
+    .list-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      margin: 20px;
+    }
+
+    .item {
+      margin: 20px;
+      padding: 30px;
+      border-radius: 16px;
+      background-color: #333333;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      width: calc(33.33% - 40px);
+      text-align: center;
+      box-sizing: border-box;
+      transition: transform 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 20px;
+      background-color: #ffea00;
+      border-radius: 50%;
+    }
+
+    .details {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .name {
+      font-weight: bold;
+      margin-right: 20px;
+      color: #ffffff;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #4CAF50;
+    }
+
+    .buy-button {
+      margin-top: 20px;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 12px 24px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .buy-button:hover {
+      background-color: #45a049;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .contact-info {
+      text-align: center;
+      margin-top: 20px;
+      font-style: italic;
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FREE FIRE INDONESIA</h1>
+  </header>
+
+  <div class="form-container">
+    <input class="form-input" type="text" id="catatan" name="catatan" placeholder="Masukkan ID Free Fire" required>
+    <button class="form-button" type="button">Beli</button>
+  </div>
+
+  <div class="content-container">
+    <button class="content-button" id="diamond-btn">Diamond</button>
+    <button class="content-button" id="membership-btn">Membership</button>
+  </div>
+
+      <div class="list-container" id="diamond-list">
+        <div class="item">
+          <div class="details">
+            <div class="name">50 Diamond</div>
+            <div class="price">Rp6.539</div>
+          </div>
+          <button class="buy-button" data-href="https://dnstores.bukaolshop.site/produk/Free-Fire-50DM-1640145">Beli</button>
+        </div>
+
+        <div class="item">
+          <div class="details">
+            <div class="name">70 Diamond</div>
+            <div class="price">Rp8.848</div>
+          </div>
+          <button class="buy-button" data-href="https://dnstores.bukaolshop.site/produk/Free-Fire-70DM-1640164">Beli</button>
+        </div>
+        
+        <div class="item">
+          <div class="details">
+            <div class="name">100 Diamond</div>
+            <div class="price">Rp12.894</div>
+          </div>
+          <button class="buy-button" data-href="https://dnstores.bukaolshop.site/produk/Free-Fire-100DM-1932407">Beli</button>
+        </div>
+        
+        <div class="item">
+          <div class="details">
+            <div class="name">140 Diamond</div>
+            <div class="price">Rp17.325</div>
+          </div>
+          <button class="buy-button" data-href="https://dnstores.bukaolshop.site/produk/Free-Fire-140DM-1640174">Beli</button>
+        </div>
+        
+        <div class="item">
+          <div class="details">
+            <div class="name">210 Diamond</div>
+            <div class="price">Rp26.500</div>
+          </div>
+          <button class="buy-button" data-href="https://dnstores.bukaolshop.site/produk/Free-Fire-210DM-1647459">Beli</button>
+        </div>
+        
+        <div class="item">
+          <div class="details">
+            <div class="name">355 Diamond</div>
+            <div class="price">Rp42.825</div>
+          </div>
+          <button class="buy-button" data-href="https://dnstores.bukaolshop.site/produk/Free-Fire-355DM-1640179">Beli</button>
+        </div>
+        
+        <div class="item">
+          <div class="details">
+            <div class="name">720 Diamond</div>
+            <div class="price">Rp85.535</div>
+          </div>
+          <button class="buy-button" data-href="https://dnstores.bukaolshop.site/produk/Free-Fire-720DM-1640183">Beli</button>
+        </div>
+        
+        <div class="item">
+          <div class="details">
+            <div class="name">1.450 Diamond</div>
+            <div class="price">Rp172.825</div>
+          </div>
+          <button class="buy-button" data-href="https://dnstores.bukaolshop.site/produk/Free-Fire-1.450DM-1640609">Beli</button>
+        </div>
+        
+        <div class="item">
+          <div class="details">
+            <div class="name">2.180 Diamond</div>
+            <div class="price">Rp265.875</div>
+          </div>
+          <button class="buy-button" data-href="https://dnstores.bukaolshop.site/produk/Free-Fire-2.180DM-1640618">Beli</button>
+        </div>
+    <!-- ... (tambahkan item diamond lainnya) ... -->
+  </div>
+
+  <div class="list-container hidden" id="membership-list">
+    <div class="item">
+      <div class="icon"></div>
+      <div class="details">
+        <div class="name">Member Mingguan</div>
+        <div class="price">Rp26.580</div>
+      </div>
+      <button class="buy-button" data-href="https://dnstores.bukaolshop.site/produk/Free-Fire-Member-Mingguan-1639817">Beli</button>
+    </div>
+    <!-- ... (tambahkan item membership lainnya) ... -->
+  </div>
+
+  <p class="contact-info">Request Diamond? Hubungi Admin.</p>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const diamondBtn = document.getElementById('diamond-btn');
+      const membershipBtn = document.getElementById('membership-btn');
+      const diamondList = document.getElementById('diamond-list');
+      const membershipList = document.getElementById('membership-list');
+
+      diamondBtn.addEventListener('click', function () {
+        diamondList.classList.remove('hidden');
+        membershipList.classList.add('hidden');
+      });
+
+      membershipBtn.addEventListener('click', function () {
+        diamondList.classList.add('hidden');
+        membershipList.classList.remove('hidden');
+      });
+
+      const buyButtons = document.querySelectorAll('.buy-button');
+      buyButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          const href = button.getAttribute('data-href');
+          const catatan = document.getElementById('catatan').value;
+          const url = `${href}?catatan=${catatan}`;
+          window.location.href = url;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
