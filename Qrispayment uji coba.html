@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top-up QRIS</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f3f3f3;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    form {
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 300px;
+      max-width: 80%;
+      text-align: center;
+      transition: opacity 0.3s ease;
+    }
+
+    label {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    input {
+      width: calc(100% - 20px);
+      padding: 10px;
+      box-sizing: border-box;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    #qrisImage {
+      display: none;
+      margin-top: 30px;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    }
+
+    #totalAmount {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    #confirmationButtons {
+      margin-top: 20px;
+    }
+
+    #confirmButton, #backButton {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    #backButton {
+      background-color: #ccc;
+    }
+
+    #confirmButton:hover, #backButton:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<form id="topupForm">
+  <label for="nominal">Nominal:</label>
+  <input type="number" id="nominal" name="nominal" required>
+
+  <button type="button" onclick="generateQRIS()" id="topupButton" disabled>Top-up QRIS</button>
+</form>
+
+<div id="qrisImage">
+  <img src="#" alt="QRIS Code" id="qrisCode">
+  <p id="totalAmount"></p>
+
+  <div id="confirmationButtons">
+    <button id="confirmButton" onclick="confirmPayment()">Konfirmasi Pembayaran</button>
+    <button id="backButton" onclick="showForm()">Kembali</button>
+  </div>
+</div>
+
+<script>
+  let totalAmountValue;
+  let confirmationTime = localStorage.getItem('confirmationTime') || 0;
+
+  // Fungsi untuk menghasilkan QRIS
+  function generateQRIS() {
+    const nominalElement = document.getElementById("nominal");
+    const nominal = parseInt(nominalElement.value);
+
+    // Validasi nominal minimal 1000
+    if (isNaN(nominal) || nominal < 1000) {
+      alert('Masukkan nominal minimal 1000.');
+      return;
+    }
+
+    const kodeUnik = Math.floor(Math.random() * 900) + 100;
+    const totalAmount = nominal + kodeUnik;
+
+    totalAmountValue = totalAmount;
+    confirmationTime = 0; // Reset waktu terakhir konfirmasi
+
+    const form = document.getElementById("topupForm");
+    form.style.opacity = 0;
+
+    document.getElementById("totalAmount").textContent = `Total Amount: ${totalAmount}`;
+    document.getElementById("qrisCode").src = "https://i.ibb.co/bsGkP2v/IMG-20240103-221506.jpg";
+
+    setTimeout(() => {
+      form.style.display = "none";
+      document.getElementById("qrisImage").style.display = "block";
+      document.getElementById("qrisImage").style.opacity = 1;
+    }, 300);
+  }
+
+  // Fungsi untuk konfirmasi pembayaran dan mengirim ke Telegram
+  function confirmPayment() {
+    const currentTime = new Date().getTime();
+    const timeDifference = currentTime - confirmationTime;
+
+    // Batas waktu 5 menit sebelum dapat melakukan top-up lagi
+    if (timeDifference < 300000) { // 300000 milidetik = 5 menit
+      alert('Anda harus menunggu 5 menit sebelum melakukan top-up lagi.');
+      return;
+    }
+
+    // Pesan untuk dikirim ke Telegram
+    const message = `📢Konfirmasi Pembayaran📢\n\n📧Email: {{email_user}}\n💳Saldo Member: {{saldo_user}}\n⚙️Total Amount: ${totalAmountValue}⚙️`;
+
+    // Token bot dan ID chat Telegram
+    const botToken = '6926412641:AAHFnmSBvL8EIdQSehv97OCJu8MJwNk2Hhg';
+    const chatId = '1045127506';
+
+    // Menggunakan API fetch untuk membuat permintaan HTTP POST ke API Bot Telegram
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+      }),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Message sent:', data);
+      alert('Pembayaran berhasil dikonfirmasi! Tunggu Proses 5-15mnt.');
+      confirmationTime = new Date().getTime(); // Perbarui waktu terakhir konfirmasi
+      localStorage.setItem('confirmationTime', confirmationTime);
+    })
+    .catch(error => {
+      console.error('Error sending message:', error);
+      alert('Terjadi kesalahan saat mengirim konfirmasi pembayaran.');
+    });
+  }
+
+  // Menampilkan kembali formulir top-up
+  function showForm() {
+    const form = document.getElementById("topupForm");
+    form.style.display = "block";
+    form.style.opacity = 1;
+    document.getElementById("qrisImage").style.display = "none";
+  }
+
+  // Mengecek apakah input nominal telah diisi
+  document.getElementById("nominal").addEventListener("input", function() {
+    const topupButton = document.getElementById("topupButton");
+    topupButton.disabled = this.value.trim() === "" || parseInt(this.value) < 1000;
+  });
+</script>
+
+</body>
+</html>
